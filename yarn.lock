@@ -731,6 +731,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-core@npm:5.67.2":
+  version: 5.67.2
+  resolution: "@tanstack/query-core@npm:5.67.2"
+  checksum: 10c0/1824fbd72d07a575a71565d7fd975270b51bdf311dcfcafe21cf83c4b704af06962bbdd49019994a27edb32013aef51180bf412cca8399ac2d4cf0dc6cc8993c
+  languageName: node
+  linkType: hard
+
+"@tanstack/svelte-query@npm:^5.67.2":
+  version: 5.67.2
+  resolution: "@tanstack/svelte-query@npm:5.67.2"
+  dependencies:
+    "@tanstack/query-core": "npm:5.67.2"
+  peerDependencies:
+    svelte: ^3.54.0 || ^4.0.0 || ^5.0.0
+  checksum: 10c0/92956ad8589deab0b66cd0441cef0987574fd5ae4895176ce669dd02831fccfcf7c43608977e2271f8f2cb9963762405ccda5088f8ffd79489345c814016a936
+  languageName: node
+  linkType: hard
+
 "@types/cookie@npm:^0.6.0":
   version: 0.6.0
   resolution: "@types/cookie@npm:0.6.0"
@@ -2560,6 +2578,7 @@ __metadata:
     "@tailwindcss/container-queries": "npm:^0.1.1"
     "@tailwindcss/forms": "npm:^0.5.10"
     "@tailwindcss/typography": "npm:^0.5.16"
+    "@tanstack/svelte-query": "npm:^5.67.2"
     autoprefixer: "npm:^10.4.20"
     bits-ui: "npm:^1.3.4"
     clsx: "npm:^2.1.1"
