@@ -2387,6 +2387,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lucide-svelte@npm:^0.479.0":
+  version: 0.479.0
+  resolution: "lucide-svelte@npm:0.479.0"
+  peerDependencies:
+    svelte: ^3 || ^4 || ^5.0.0-next.42
+  checksum: 10c0/46568fb4a6d3d352309843793085a5d62db1f15796b36a84a0bf7f09295e08390d9014be106eddcd6abebf78e858122824f781e510c75c9798f7244369f0fc62
+  languageName: node
+  linkType: hard
+
 "magic-string@npm:^0.30.11, magic-string@npm:^0.30.15, magic-string@npm:^0.30.5":
   version: 0.30.17
   resolution: "magic-string@npm:0.30.17"
@@ -2588,6 +2597,7 @@ __metadata:
     globals: "npm:^15.14.0"
     husky: "npm:^9.1.7"
     lint-staged: "npm:^15.4.3"
+    lucide-svelte: "npm:^0.479.0"
     prettier: "npm:^3.4.2"
     prettier-plugin-svelte: "npm:^3.3.3"
     prettier-plugin-tailwindcss: "npm:^0.6.10"

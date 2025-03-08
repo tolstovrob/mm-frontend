@@ -58,6 +58,7 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
-		"@tanstack/svelte-query": "^5.67.2"
+		"@tanstack/svelte-query": "^5.67.2",
+		"lucide-svelte": "^0.479.0"
 	}
 }
