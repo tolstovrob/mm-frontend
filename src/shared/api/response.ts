@@ -11,4 +11,6 @@ export interface BaseResponse {
 	status: number;
 }
 
-export type Response<T> = BaseResponse & (T | { error: string });
+export type Response<T> = BaseResponse & T;
+
+export type ErrorResponse = BaseResponse & { message: string };
