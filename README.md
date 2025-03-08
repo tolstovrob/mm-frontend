@@ -8,6 +8,7 @@
 
 - [tailwindcss](https://tailwindcss.com/docs/installation/using-vite)
 - [shadcn-svelte](https://next.shadcn-svelte.com/docs)
+- [shadcn-extras](https://www.shadcn-svelte-extras.com/)
 
 Также практически полностью выстроен конвейер разработки:
 
