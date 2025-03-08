@@ -14,7 +14,7 @@
 		"lint": "prettier --check . && eslint ."
 	},
 	"lint-staged": {
-		"*.{html,css,js,ts,jsx,tsx}": [
+		"*.{html,css,js,ts,svelte}": [
 			"eslint --quiet --fix ."
 		],
 		"*": [
