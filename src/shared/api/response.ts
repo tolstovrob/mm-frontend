@@ -13,4 +13,4 @@ export interface BaseResponse {
 
 export type Response<T> = BaseResponse & T;
 
-export type ErrorResponse = BaseResponse & { message: string };
+export type MessageResponse = BaseResponse & { message: string };
