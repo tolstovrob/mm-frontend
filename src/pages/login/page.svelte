@@ -7,6 +7,7 @@
 	<div class="flex flex-col gap-4 p-6 md:p-10">
 		<div class="flex justify-center gap-2 md:justify-start">
 			<a
+				title="MergeMinds"
 				href="/"
 				class="flex items-center gap-2 font-medium select-none">
 				<div
@@ -32,9 +33,10 @@
 			<p>
 				<strong>MergeMinds</strong> &mdash; это как
 				<a
+					title="Moodle"
 					href="https://moodle.org"
 					class="underline-offset-4 underline"
-					rel="noreferrer noopenner">
+					rel="noreferrer noopener">
 					Moodle
 				</a>, только с фичами Git. История попыток, сравнение решений и работа с проектами &mdash;
 				мечта преподавателя в большой группе.
@@ -42,6 +44,7 @@
 			<p class="mt-12">
 				Больше информации можно найти
 				<a
+					title="Дополнительная информация о платформе"
 					href="/about"
 					class="underline-offset-4 underline">
 					тут
