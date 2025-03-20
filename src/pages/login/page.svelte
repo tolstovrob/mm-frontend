@@ -1,10 +1,9 @@
 <script lang="ts">
-	import LightSwitch from '$shared/components/ui/light-switch/light-switch.svelte';
-import { LoginForm } from '$widgets/LoginForm';
+	import { LoginForm } from '$widgets/LoginForm';
 	import { GitPullRequest } from 'lucide-svelte';
 </script>
 
-<div class="grid min-h-svh lg:grid-cols-3">
+<div class="grid min-h-svh xl:grid-cols-3 fixed top-0 left-0 w-full">
 	<div class="flex flex-col gap-4 col-span-2 p-6 md:p-10">
 		<div class="flex justify-center gap-2 md:justify-start">
 			<a
@@ -24,11 +23,11 @@ import { LoginForm } from '$widgets/LoginForm';
 			</div>
 		</div>
 	</div>
-	<div class="relative overflow-hidden hidden bg-muted lg:block">
+	<div class="relative overflow-hidden hidden bg-muted xl:block">
 		<GitPullRequest class="absolute -top-1/2 -left-1/2 -rotate-45 w-full h-full opacity-10 z-0" />
 		<GitPullRequest class="absolute top-1/2 -left-1/2 -rotate-45 w-full h-full opacity-10" />
 		<GitPullRequest class="absolute top-0 left-1/4 -rotate-45 w-full h-full opacity-10" />
-		
+
 		<div
 			class="w-full h-full absolute top-0 left-0 z-10 p-16 pt-32 text-lg 2xl:text-xl dark:bg-black dark:bg-opacity-50">
 			<p>

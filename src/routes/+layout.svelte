@@ -6,4 +6,6 @@
 </script>
 
 <ModeWatcher />
-{@render children()}
+<main class="container">
+	{@render children()}
+</main>
