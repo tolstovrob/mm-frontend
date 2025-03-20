@@ -18,6 +18,7 @@ const config = {
 			$shared: './src/shared',
 			$features: './src/features',
 			$entities: './src/entities',
+			$widgets: './src/widgets',
 			$pages: './src/pages',
 			$routes: './src/routes',
 			$app: './src/app',
