@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Input } from '$shared/components/ui/input';
 	import type { WithElementRef } from 'bits-ui';
-	import { Eye, EyeOff, Mouse } from 'lucide-svelte';
+	import { Eye, EyeOff } from 'lucide-svelte';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
 	type Props = WithElementRef<HTMLInputAttributes> & {
