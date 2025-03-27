@@ -8,6 +8,8 @@
 
 - [tailwindcss](https://tailwindcss.com/docs/installation/using-vite)
 - [shadcn-svelte](https://next.shadcn-svelte.com/docs)
+- [zod](https://zod.dev/)
+- [tanstack query svelte](https://tanstack.com/query/latest/docs/framework/svelte/overview)
 
 Также практически полностью выстроен конвейер разработки:
 
