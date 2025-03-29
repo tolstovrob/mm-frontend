@@ -97,11 +97,3 @@
 		</a>
 	</div>
 </form>
-
-<pre>
-  {JSON.stringify(formState, null, 2)}
-</pre>
-
-<pre>
-  {JSON.stringify($sender.data) ?? 'no data'}
-</pre>
