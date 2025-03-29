@@ -7,7 +7,7 @@
 	type Props = WithElementRef<HTMLInputAttributes> & {
 		showPassword: boolean;
 		toggleShowPassword: (event: MouseEvent) => void;
-		value: string;
+		value?: string;
 	};
 
 	let { showPassword, toggleShowPassword, value = $bindable(), ...restProps }: Props = $props();
