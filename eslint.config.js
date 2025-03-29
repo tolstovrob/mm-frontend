@@ -34,4 +34,10 @@ export default ts.config(
 	{
 		ignores: ['build/', '.svelte-kit/', 'dist/'],
 	},
+	{
+		rules: {
+			'no-empty-pattern': 'off',
+			'no-empty': ['error', { allowEmptyCatch: true }],
+		},
+	},
 );
