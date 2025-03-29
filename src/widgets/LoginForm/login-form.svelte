@@ -3,17 +3,27 @@
 	import { Label } from '$shared/components/ui/label';
 	import { Button } from '$shared/components/ui/button';
 	import { PasswordInput } from '$shared/components/ui/password-input';
-	import type { LoginEmailRequest } from '$features/Auth';
+	import * as Auth from '$features/Auth';
+	import { Loader2 } from 'lucide-svelte';
 
 	type Props = {
-		formState: LoginEmailRequest;
+		formState: Auth.LoginEmailRequest;
 	};
 
 	let showPassword: boolean = $state(false);
 	let { formState = $bindable() }: Props = $props();
+	const sender = Auth.login(formState);
+
+	const handleSubmit = async (event: SubmitEvent) => {
+		event.preventDefault();
+		$sender.mutate(formState);
+	};
 </script>
 
-<form class="flex flex-col gap-6">
+<form
+	class="flex flex-col gap-6"
+	method="post"
+	onsubmit={handleSubmit}>
 	<div class="flex flex-col items-center gap-2 text-center">
 		<h1 class="text-2xl font-bold">Войдите в аккаунт</h1>
 		<p class="text-balance text-sm text-muted-foreground">Для полного доступа к платформе</p>
@@ -50,8 +60,13 @@
 		</div>
 		<Button
 			type="submit"
+			disabled={$sender.isPending}
 			class="w-full">
-			Войти
+			{#if $sender.isPending}
+				<Loader2 class="animate-spin" />
+			{:else}
+				Войти
+			{/if}
 		</Button>
 		<div
 			class="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
@@ -61,6 +76,7 @@
 		</div>
 		<Button
 			variant="outline"
+			type="submit"
 			class="w-full">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -84,4 +100,8 @@
 
 <pre>
   {JSON.stringify(formState, null, 2)}
+</pre>
+
+<pre>
+  {JSON.stringify($sender.data) ?? 'no data'}
 </pre>
