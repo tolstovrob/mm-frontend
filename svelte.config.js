@@ -17,7 +17,7 @@ const config = {
 			'$shared/utils': './src/shared/utils',
 			$shared: './src/shared',
 			$features: './src/features',
-			$services: './src/services',
+			$widgets: './src/widgets',
 			$pages: './src/pages',
 			$routes: './src/routes',
 			$app: './src/app',
