@@ -42,7 +42,7 @@
 				id="email"
 				type="email"
 				bind:value={formState.email}
-				placeholder="mm@alivetech.org" />
+				placeholder="aboba@example.org" />
 			{#if $sender.data && 'email' in $sender.data}
 				<p class="text-sm text-red-600">{$sender.data.email}</p>
 			{/if}

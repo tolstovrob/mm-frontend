@@ -13,14 +13,14 @@
 	<div class="flex flex-col gap-4 col-span-2 p-6 md:p-10">
 		<div class="flex justify-center gap-2 md:justify-start">
 			<a
-				title="MergeMinds"
+				title="Brand"
 				href="/"
 				class="flex items-center gap-2 font-medium select-none">
 				<div
 					class="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
 					<GitPullRequest class="size-4" />
 				</div>
-				MergeMinds
+				MyBrand
 			</a>
 		</div>
 		<div class="flex flex-1 items-center justify-center">
@@ -35,29 +35,17 @@
 		<GitPullRequest class="absolute top-0 left-1/4 -rotate-45 w-full h-full opacity-10" />
 
 		<div
-			class="w-full h-full absolute top-0 left-0 z-10 p-16 pt-32 text-lg 2xl:text-xl dark:bg-black dark:bg-opacity-50">
+			class="w-full h-full absolute top-0 left-0 z-10 p-16 pt-32 text-lg 2xl:text-xl dark:bg-black dark:bg-opacity-50 flex flex-col gap-6">
+			<p>Some info about <strong>brand</strong>.</p>
 			<p>
-				<strong>MergeMinds</strong> &mdash; это как
-				<a
-					title="Moodle"
-					href="https://moodle.org"
-					class="underline-offset-4 underline"
-					rel="noreferrer noopener">
-					Moodle
-				</a>, только лучше.
+				Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde esse illum dignissimos?
+				Excepturi neque fuga itaque totam obcaecati eos, illum cumque autem voluptate rerum ipsa,
+				temporibus delectus harum non ducimus.
 			</p>
-			<p class="mt-12">
-				<strong>MergeMinds</strong> &mdash; с фичами Git. История попыток, сравнение решений и работа
-				с проектами &mdash; мечта преподавателя в большой группе.
-			</p>
-			<p class="mt-12">
-				Больше информации можно найти
-				<a
-					title="Дополнительная информация о платформе"
-					href="/about"
-					class="underline-offset-4 underline">
-					тут
-				</a>. Присоединяйтесь!
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime exercitationem fuga
+				doloribus porro officiis numquam, a consequuntur rem, ex saepe odio illum ratione eius, quae
+				laborum eaque similique quibusdam ullam?
 			</p>
 		</div>
 	</div>
