@@ -1,7 +1,13 @@
 import { backend, type MutationResponse } from '$shared/api';
 import { createMutation } from '@tanstack/svelte-query';
-import type { LoginEmailRequest, LoginEmailResponse } from './types';
-import { validateLoginEmailForm } from './internal';
+import type {
+	LoginEmailRequest,
+	LoginEmailResponse,
+	RegisterForm,
+	RegisterRequest,
+	RegisterResponse,
+} from './types';
+import { validateLoginEmailForm, validateRegisterForm } from './internal';
 
 const loginMutationFn = async (
 	formData: LoginEmailRequest,
@@ -25,5 +31,31 @@ export const login = (
 	return createMutation({
 		mutationKey: ['auth', 'login'],
 		mutationFn: () => loginMutationFn(formData),
+	});
+};
+
+const registerMutationFn = async (
+	formData: RegisterForm,
+): Promise<RegisterResponse | Record<string, string>> => {
+	const validationResult = validateRegisterForm(formData);
+
+	if ('status' in validationResult && validationResult.status === 'OK') {
+		const { confirmPassword: _, ...rest } = formData;
+		return await fetch(backend('/register'), {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(rest as RegisterRequest),
+		}).then((data) => data.json() as unknown as RegisterResponse);
+	} else {
+		return validationResult;
+	}
+};
+
+export const register = (
+	formData: RegisterForm,
+): MutationResponse<RegisterRequest, RegisterResponse | Record<string, string>> => {
+	return createMutation({
+		mutationKey: ['auth', 'login'],
+		mutationFn: () => registerMutationFn(formData),
 	});
 };
