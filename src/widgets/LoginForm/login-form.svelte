@@ -41,7 +41,7 @@
 			<Label for="email">Адрес электронной почты</Label>
 			<Input
 				id="email"
-				type="email"
+				type="text"
 				bind:value={formState.email}
 				placeholder="aboba@example.org" />
 			{#if $sender.data && 'email' in $sender.data}
