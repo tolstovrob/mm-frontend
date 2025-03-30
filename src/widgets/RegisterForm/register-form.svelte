@@ -101,6 +101,9 @@
 					</div>
 				</div>
 			</div>
+			{#if $sender.data && 'global' in $sender.data}
+				<p class="text-sm mt-4 text-red-600">{$sender.data.global}</p>
+			{/if}
 		</FieldSet.Content>
 		<FieldSet.Footer>
 			<div
@@ -122,9 +125,6 @@
 						Регистрация
 					{/if}
 				</Button>
-				{#if $sender.data && 'global' in $sender.data}
-					<p class="text-sm text-red-600">{$sender.data.global}</p>
-				{/if}
 			</div>
 		</FieldSet.Footer>
 	</FieldSet.Root>
