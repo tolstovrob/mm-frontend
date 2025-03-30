@@ -4,5 +4,6 @@ export interface LoginEmailRequest {
 }
 
 export interface LoginEmailResponse {
+	status: number;
 	message: string;
 }
