@@ -1,12 +1,6 @@
 <script lang="ts">
-	import type { LoginEmailRequest } from '$features/Auth';
 	import { LoginForm } from '$widgets/LoginForm';
 	import { GitPullRequest } from 'lucide-svelte';
-
-	let formState: LoginEmailRequest = $state({
-		email: '',
-		password: '',
-	});
 </script>
 
 <div class="grid min-h-svh xl:grid-cols-3 fixed top-0 left-0 w-full">
@@ -25,7 +19,7 @@
 		</div>
 		<div class="flex flex-1 items-center justify-center">
 			<div class="w-full max-w-xs">
-				<LoginForm bind:formState />
+				<LoginForm />
 			</div>
 		</div>
 	</div>

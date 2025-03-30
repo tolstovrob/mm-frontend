@@ -7,12 +7,12 @@
 	import { Loader2 } from 'lucide-svelte';
 	import { goto } from '$app/navigation';
 
-	type Props = {
-		formState: Auth.LoginEmailRequest;
-	};
-
 	let showPassword: boolean = $state(false);
-	let { formState = $bindable() }: Props = $props();
+	let formState: Auth.LoginEmailRequest = $state({
+		email: '',
+		password: '',
+	});
+
 	const sender = Auth.login(formState);
 
 	$effect(() => {

@@ -8,12 +8,15 @@
 	import * as FieldSet from '$shared/components/ui/field-set';
 	import { Loader2 } from 'lucide-svelte';
 
-	type Props = {
-		formState: Auth.RegisterForm;
-	};
-
 	let showPassword: boolean = $state(false);
-	let { formState = $bindable() }: Props = $props();
+	let formState: Auth.RegisterForm = $state({
+		email: '',
+		firstName: '',
+		lastName: '',
+		password: '',
+		confirmPassword: '',
+	});
+
 	const sender = Auth.register(formState);
 
 	$effect(() => {
