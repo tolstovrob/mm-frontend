@@ -38,6 +38,14 @@ export default ts.config(
 		rules: {
 			'no-empty-pattern': 'off',
 			'no-empty': ['error', { allowEmptyCatch: true }],
+			'@typescript-eslint/no-unused-vars': [
+				'error',
+				{
+					argsIgnorePattern: '^_',
+					varsIgnorePattern: '^_',
+					caughtErrorsIgnorePattern: '^_',
+				},
+			],
 		},
 	},
 );
