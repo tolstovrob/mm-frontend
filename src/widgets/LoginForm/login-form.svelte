@@ -5,6 +5,7 @@
 	import { PasswordInput } from '$shared/components/ui/password-input';
 	import * as Auth from '$features/Auth';
 	import { Loader2 } from 'lucide-svelte';
+	import { goto } from '$app/navigation';
 
 	type Props = {
 		formState: Auth.LoginEmailRequest;
@@ -14,9 +15,15 @@
 	let { formState = $bindable() }: Props = $props();
 	const sender = Auth.login(formState);
 
+	$effect(() => {
+		if ($sender.data?.status === 200) {
+			goto('/');
+		}
+	});
+
 	const handleSubmit = async (event: SubmitEvent) => {
 		event.preventDefault();
-		$sender.mutate(formState);
+		await $sender.mutateAsync(formState);
 	};
 </script>
 
@@ -35,8 +42,10 @@
 				id="email"
 				type="email"
 				bind:value={formState.email}
-				placeholder="mm@alivetech.org"
-				required />
+				placeholder="mm@alivetech.org" />
+			{#if $sender.data && 'email' in $sender.data}
+				<p class="text-sm text-red-600">{$sender.data.email}</p>
+			{/if}
 		</div>
 		<div class="grid gap-2">
 			<div class="flex items-center">
@@ -55,8 +64,10 @@
 				toggleShowPassword={(event) => {
 					event.preventDefault();
 					showPassword = !showPassword;
-				}}
-				required />
+				}} />
+			{#if $sender.data && 'password' in $sender.data}
+				<p class="text-sm text-red-600">{$sender.data.password}</p>
+			{/if}
 		</div>
 		<Button
 			type="submit"
