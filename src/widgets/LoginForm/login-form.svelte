@@ -17,6 +17,7 @@
 
 	$effect(() => {
 		if ($sender.data?.status === 200) {
+			// TODO(tolstovrob): implement some kind of store or smth
 			goto('/');
 		}
 	});
