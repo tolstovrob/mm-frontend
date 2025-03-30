@@ -9,5 +9,7 @@
 
 <ModeWatcher />
 <QueryClientProvider client={queryClient}>
-	{@render children()}
+	<main class="container my-8">
+		{@render children()}
+	</main>
 </QueryClientProvider>
