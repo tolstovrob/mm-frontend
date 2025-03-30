@@ -122,6 +122,9 @@
 						Регистрация
 					{/if}
 				</Button>
+				{#if $sender.data && 'global' in $sender.data}
+					<p class="text-sm text-red-600">{$sender.data.global}</p>
+				{/if}
 			</div>
 		</FieldSet.Footer>
 	</FieldSet.Root>

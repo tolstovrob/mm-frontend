@@ -19,7 +19,15 @@ const loginMutationFn = async (
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(formData),
-		}).then((data) => data.json() as unknown as LoginEmailResponse);
+		})
+			.then((data) => data.json())
+			.then((data) =>
+				data?.status === 200
+					? (data as unknown as RegisterResponse)
+					: 'errors' in data
+						? (data.errors as Record<string, string>)
+						: { global: 'Неизвестная ошибка, попробуйте позже' },
+			);
 	} else {
 		return validationResult;
 	}
@@ -45,7 +53,15 @@ const registerMutationFn = async (
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(rest as RegisterRequest),
-		}).then((data) => data.json() as unknown as RegisterResponse);
+		})
+			.then((data) => data.json())
+			.then((data) =>
+				data?.status === 200
+					? (data as unknown as RegisterResponse)
+					: 'errors' in data
+						? (data.errors as Record<string, string>)
+						: { global: 'Неизвестная ошибка, попробуйте позже' },
+			);
 	} else {
 		return validationResult;
 	}
