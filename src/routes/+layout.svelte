@@ -2,6 +2,7 @@
 	import { queryClient } from '$shared/api';
 	import { QueryClientProvider } from '@tanstack/svelte-query';
 	import { ModeWatcher } from 'mode-watcher';
+	import { Navbar } from '$widgets/Navbar';
 	import '../app.css';
 
 	let { children } = $props();
@@ -9,7 +10,8 @@
 
 <ModeWatcher />
 <QueryClientProvider client={queryClient}>
-	<main class="container my-8">
+	<Navbar />
+	<main class="container py-8 border-x-[1px] border-border">
 		{@render children()}
 	</main>
 </QueryClientProvider>
