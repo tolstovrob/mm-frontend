@@ -6,6 +6,7 @@
 	import * as Auth from '$features/Auth';
 	import { goto } from '$app/navigation';
 	import * as FieldSet from '$shared/components/ui/field-set';
+	import { Loader2 } from 'lucide-svelte';
 
 	type Props = {
 		formState: Auth.RegisterForm;
@@ -108,7 +109,16 @@
 						href="/user-agreement"
 						class="underline-offset-4 underline">пользовательским соглашением</a>
 				</span>
-				<Button type="submit">Регистрация</Button>
+				<Button
+					type="submit"
+					class="w-36"
+					disabled={$sender.isPending}>
+					{#if $sender.isPending}
+						<Loader2 class="animate-spin" />
+					{:else}
+						Регистрация
+					{/if}
+				</Button>
 			</div>
 		</FieldSet.Footer>
 	</FieldSet.Root>
