@@ -46,6 +46,7 @@ export default ts.config(
 					caughtErrorsIgnorePattern: '^_',
 				},
 			],
+			'@typescript-eslint/no-empty-object-type': 'off',
 		},
 	},
 );
