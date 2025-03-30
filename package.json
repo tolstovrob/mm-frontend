@@ -15,10 +15,10 @@
 	},
 	"lint-staged": {
 		"*.{html,css,js,ts,svelte}": [
-			"eslint --quiet --fix ."
+			"eslint --quiet --fix"
 		],
 		"*": [
-			"prettier --write --ignore-unknown ."
+			"prettier --write --ignore-unknown"
 		]
 	},
 	"husky": {
