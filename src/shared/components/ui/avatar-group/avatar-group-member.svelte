@@ -3,6 +3,7 @@
 -->
 
 <script lang="ts">
+	import AvatarRoot from '../avatar/avatar.svelte';
 	import { Avatar as AvatarPrimitive } from 'bits-ui';
 	import { cn } from '../../../utils/utils.js';
 
@@ -10,10 +11,10 @@
 		ref = $bindable(null),
 		class: className,
 		...restProps
-	}: AvatarPrimitive.FallbackProps = $props();
+	}: AvatarPrimitive.RootProps = $props();
 </script>
 
-<AvatarPrimitive.Fallback
+<AvatarRoot
 	bind:ref
-	class={cn('flex h-full w-full items-center justify-center rounded-full bg-muted', className)}
+	class={cn('bg-accent ring-2 ring-background', className)}
 	{...restProps} />
