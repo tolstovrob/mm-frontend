@@ -185,6 +185,34 @@ export const validateLoginForm = (formData: ILoginRequest): Record<string, strin
 
 Если тебе нужно хранить какие-то данные, то можешь создать `store.ts`, экспортировать его через `index.ts` и внутри него реализовать `writable` или другое реактивное хранилище. Примеров не будет, надеюсь, ты справишься сам!
 
+## Шаг 5: использование
+
+В любом компоненте мы можем использовать нашу фичу так:
+
+```html
+<script lang="ts">
+	import * as Auth from '$features/Auth';
+
+	let formState: Auth.ILoginRequest = $state({
+		email: '',
+		password: '',
+	});
+
+	const sender = Auth.login(formState);
+
+	const handleSubmit = async (event: SubmitEvent) => {
+		event.preventDefault();
+		await $sender.mutateAsync(formState);
+	};
+</script>
+
+<form onsubmit="{handleSubmit}">
+	<!-- реализация формы -->
+</form>
+```
+
+Главное не забывать использовать руны из Svelte 5.
+
 ## Вопросы?
 
 Если что-то непонятно &mdash; открой issue с меткой `question` или свяжись со мной по социальным сетям в моём профиле.
