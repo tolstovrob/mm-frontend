@@ -1,25 +1,27 @@
-export interface LoginEmailRequest {
+export interface ILoginRequest {
 	email: string;
 	password: string;
 }
 
-export interface LoginEmailResponse {
+export interface ILoginForm extends ILoginRequest {}
+
+export interface ILoginResponse {
 	status: number;
 	message: string;
 }
 
-export interface RegisterRequest {
+export interface IRegisterRequest {
 	email: string;
 	firstName: string;
 	lastName: string;
 	password: string;
 }
 
-export interface RegisterForm extends RegisterRequest {
+export interface IRegisterForm extends IRegisterRequest {
 	confirmPassword: string;
 }
 
-export interface RegisterResponse {
+export interface IRegisterResponse {
 	status: number;
 	message: string;
 }

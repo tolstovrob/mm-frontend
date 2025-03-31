@@ -8,7 +8,7 @@
 	import { goto } from '$app/navigation';
 
 	let showPassword: boolean = $state(false);
-	let formState: Auth.LoginEmailRequest = $state({
+	let formState: Auth.ILoginForm = $state({
 		email: '',
 		password: '',
 	});

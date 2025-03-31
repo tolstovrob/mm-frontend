@@ -1,29 +1,30 @@
 import { backend, type MutationResponse } from '$shared/api';
 import { createMutation } from '@tanstack/svelte-query';
 import type {
-	LoginEmailRequest,
-	LoginEmailResponse,
-	RegisterForm,
-	RegisterRequest,
-	RegisterResponse,
+	ILoginRequest,
+	ILoginResponse,
+	ILoginForm,
+	IRegisterForm,
+	IRegisterRequest,
+	IRegisterResponse,
 } from './types';
 import { validateLoginEmailForm, validateRegisterForm } from './internal';
 
 const loginMutationFn = async (
-	formData: LoginEmailRequest,
-): Promise<LoginEmailResponse | Record<string, string>> => {
+	formData: ILoginForm,
+): Promise<ILoginResponse | Record<string, string>> => {
 	const validationResult = validateLoginEmailForm(formData);
 
 	if ('status' in validationResult && validationResult.status === 'OK') {
 		return await fetch(backend('/login'), {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(formData),
+			body: JSON.stringify(formData as ILoginRequest),
 		})
 			.then((data) => data.json())
 			.then((data) =>
 				data?.status === 200
-					? (data as unknown as RegisterResponse)
+					? (data as ILoginResponse)
 					: 'errors' in data
 						? (data.errors as Record<string, string>)
 						: { global: 'Неизвестная ошибка, попробуйте позже' },
@@ -34,8 +35,8 @@ const loginMutationFn = async (
 };
 
 export const login = (
-	formData: LoginEmailRequest,
-): MutationResponse<LoginEmailRequest, LoginEmailResponse | Record<string, string>> => {
+	formData: ILoginForm,
+): MutationResponse<ILoginRequest, ILoginResponse | Record<string, string>> => {
 	return createMutation({
 		mutationKey: ['auth', 'login'],
 		mutationFn: () => loginMutationFn(formData),
@@ -43,8 +44,8 @@ export const login = (
 };
 
 const registerMutationFn = async (
-	formData: RegisterForm,
-): Promise<RegisterResponse | Record<string, string>> => {
+	formData: IRegisterForm,
+): Promise<IRegisterResponse | Record<string, string>> => {
 	const validationResult = validateRegisterForm(formData);
 
 	if ('status' in validationResult && validationResult.status === 'OK') {
@@ -52,12 +53,12 @@ const registerMutationFn = async (
 		return await fetch(backend('/register'), {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(rest as RegisterRequest),
+			body: JSON.stringify(rest as IRegisterRequest),
 		})
 			.then((data) => data.json())
 			.then((data) =>
 				data?.status === 200
-					? (data as unknown as RegisterResponse)
+					? (data as IRegisterResponse)
 					: 'errors' in data
 						? (data.errors as Record<string, string>)
 						: { global: 'Неизвестная ошибка, попробуйте позже' },
@@ -68,8 +69,8 @@ const registerMutationFn = async (
 };
 
 export const register = (
-	formData: RegisterForm,
-): MutationResponse<RegisterRequest, RegisterResponse | Record<string, string>> => {
+	formData: IRegisterForm,
+): MutationResponse<IRegisterRequest, IRegisterResponse | Record<string, string>> => {
 	return createMutation({
 		mutationKey: ['auth', 'login'],
 		mutationFn: () => registerMutationFn(formData),

@@ -9,7 +9,7 @@
 	import { Loader2 } from 'lucide-svelte';
 
 	let showPassword: boolean = $state(false);
-	let formState: Auth.RegisterForm = $state({
+	let formState: Auth.IRegisterForm = $state({
 		email: '',
 		firstName: '',
 		lastName: '',
