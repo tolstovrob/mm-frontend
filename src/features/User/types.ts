@@ -1,8 +1,9 @@
 export interface IUserCredentials {
 	id: number;
 	email: string;
-	firstName: string;
 	lastName: string;
+	firstName: string;
+	patronymic: string;
 	avatarURL: string;
 }
 
