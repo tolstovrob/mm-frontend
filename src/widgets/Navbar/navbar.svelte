@@ -55,12 +55,12 @@
 						align="end"
 						class="w-36">
 						<DropdownMenu.Group>
-							<DropdownMenu.Item>
-								<a href="/login"> Вход </a>
-							</DropdownMenu.Item>
-							<DropdownMenu.Item>
-								<a href="/register"> Регистрация </a>
-							</DropdownMenu.Item>
+							<a href="/login">
+								<DropdownMenu.Item>Вход</DropdownMenu.Item>
+							</a>
+							<a href="/register">
+								<DropdownMenu.Item>Регистрация</DropdownMenu.Item>
+							</a>
 						</DropdownMenu.Group>
 					</DropdownMenu.Content>
 				</DropdownMenu.Root>
