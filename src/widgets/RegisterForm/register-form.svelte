@@ -39,9 +39,9 @@
 	<FieldSet.Root>
 		<FieldSet.Title class="p-6 pt-10">Создать аккаунт</FieldSet.Title>
 		<FieldSet.Content>
-			<div class="grid gap-6">
-				<div class="flex gap-6">
-					<div class="flex w-full max-w-72 flex-col justify-start gap-2">
+			<div class="flex flex-col gap-6">
+				<div class="flex flex-col gap-6 lg:flex-row">
+					<div class="flex w-full flex-col justify-start gap-2 lg:max-w-72">
 						<Label for="email">Адрес электронной почты</Label>
 						<Input
 							id="email"
@@ -52,7 +52,7 @@
 							<p class="text-sm text-red-600">{$sender.data.email}</p>
 						{/if}
 					</div>
-					<div class="flex w-full max-w-72 flex-col justify-start gap-2">
+					<div class="flex w-full flex-col justify-start gap-2 lg:max-w-72">
 						<Label for="lastName">Фамилия</Label>
 						<Input
 							id="lastName"
@@ -65,8 +65,8 @@
 					</div>
 				</div>
 
-				<div class="flex gap-6">
-					<div class="flex w-full max-w-72 flex-col justify-start gap-2">
+				<div class="flex flex-col gap-6 lg:flex-row">
+					<div class="flex w-full flex-col justify-start gap-2 lg:max-w-72">
 						<Label for="firstName">Имя</Label>
 						<Input
 							id="firstName"
@@ -77,7 +77,7 @@
 							<p class="text-sm text-red-600">{$sender.data.firstName}</p>
 						{/if}
 					</div>
-					<div class="flex w-full max-w-72 flex-col justify-start gap-2">
+					<div class="flex w-full flex-col justify-start gap-2 lg:max-w-72">
 						<Label for="patronymic">Отчество (при наличии)</Label>
 						<Input
 							id="patronymic"
@@ -89,8 +89,8 @@
 						{/if}
 					</div>
 				</div>
-				<div class="flex gap-6">
-					<div class="flex w-full max-w-72 flex-col justify-start gap-2">
+				<div class="flex flex-col gap-6 lg:flex-row">
+					<div class="flex w-full flex-col justify-start gap-2 lg:max-w-72">
 						<Label for="password">Пароль</Label>
 						<PasswordInput
 							id="password"
@@ -102,7 +102,7 @@
 							<p class="text-sm text-red-600">{$sender.data.password}</p>
 						{/if}
 					</div>
-					<div class="flex w-full max-w-72 flex-col justify-start gap-2">
+					<div class="flex w-full flex-col justify-start gap-2 lg:max-w-72">
 						<Label for="confirmPassword">Повтор пароля</Label>
 						<PasswordInput
 							id="confirmPassword"
