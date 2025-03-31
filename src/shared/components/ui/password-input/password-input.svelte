@@ -20,7 +20,10 @@
 		type={showPassword ? 'text' : 'password'} />
 	<button
 		class="absolute right-3 top-3"
-		onclick={toggleShowPassword}>
+		onclick={(event: MouseEvent) => {
+			event.preventDefault();
+			toggleShowPassword(event);
+		}}>
 		{#if showPassword}
 			<Eye size="16" />
 		{:else}
