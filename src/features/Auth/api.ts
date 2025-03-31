@@ -13,15 +13,27 @@ import { validateLoginEmailForm, validateRegisterForm } from './internal';
 const loginMutationFn = async (
 	formData: ILoginForm,
 ): Promise<ILoginResponse | Record<string, string>> => {
+	const controller = new AbortController();
 	const validationResult = validateLoginEmailForm(formData);
 
 	if ('status' in validationResult && validationResult.status === 'OK') {
-		return await fetch(backend('/login'), {
+		const timeout = setTimeout(
+			() => {
+				controller.abort('Превышено время ожидания');
+			},
+			import.meta.env.VITE_SERVER_RESPONSE_TIMEOUT_MS ?? 10000,
+		);
+
+		const response = await fetch(backend('/login'), {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(formData as ILoginRequest),
+			signal: controller.signal,
 		})
-			.then((data) => data.json())
+			.then((data) => {
+				clearTimeout(timeout);
+				return data.json();
+			})
 			.then((data) =>
 				data?.status === 200
 					? (data as ILoginResponse)
@@ -29,6 +41,8 @@ const loginMutationFn = async (
 						? (data.errors as Record<string, string>)
 						: { global: 'Неизвестная ошибка, попробуйте позже' },
 			);
+
+		return response;
 	} else {
 		return validationResult;
 	}
@@ -46,16 +60,28 @@ export const login = (
 const registerMutationFn = async (
 	formData: IRegisterForm,
 ): Promise<IRegisterResponse | Record<string, string>> => {
+	const controller = new AbortController();
 	const validationResult = validateRegisterForm(formData);
 
 	if ('status' in validationResult && validationResult.status === 'OK') {
+		const timeout = setTimeout(
+			() => {
+				controller.abort('Превышено время ожидания');
+			},
+			import.meta.env.VITE_SERVER_RESPONSE_TIMEOUT_MS ?? 10000,
+		);
+
 		const { confirmPassword: _, ...rest } = formData;
 		return await fetch(backend('/register'), {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(rest as IRegisterRequest),
+			signal: controller.signal,
 		})
-			.then((data) => data.json())
+			.then((data) => {
+				clearTimeout(timeout);
+				return data.json();
+			})
 			.then((data) =>
 				data?.status === 200
 					? (data as IRegisterResponse)

@@ -104,6 +104,9 @@
 			{#if $sender.data && 'global' in $sender.data}
 				<p class="text-sm mt-4 text-red-600">{$sender.data.global}</p>
 			{/if}
+			{#if $sender.error}
+				<p class="text-sm mt-4 text-red-600">{$sender.error}</p>
+			{/if}
 		</FieldSet.Content>
 		<FieldSet.Footer>
 			<div
