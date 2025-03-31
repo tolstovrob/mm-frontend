@@ -27,11 +27,11 @@
 
 <nav class="w-full border-b-[1px] border-border">
 	<div
-		class="container flex flex-row justify-between items-center border-x-[1px] py-3 border-border">
+		class="container flex flex-row items-center justify-between border-x-[1px] border-border py-3">
 		<a
 			title="MergeMinds"
 			href="/"
-			class="flex items-center gap-2 font-bold select-none text-xl">
+			class="flex select-none items-center gap-2 text-xl font-bold">
 			<div
 				class="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
 				<GitPullRequest class="size-4" />
@@ -79,9 +79,9 @@
 							variant="outline"
 							disabled={$session.isPending}
 							href="/profile"
-							class="max-w-56 lg:min-w-36 overflow-hidden text-ellipsis line-clamp-1 flex flex-row gap-2">
+							class="line-clamp-1 flex max-w-56 flex-row gap-2 overflow-hidden text-ellipsis lg:min-w-36">
 							{#if $session.isPending}
-								<Skeleton class="w-36 h-5" />
+								<Skeleton class="h-5 w-36" />
 							{:else if $session.data && 'id' in $session.data}
 								<Avatar.Root class="h-6 w-6 text-xs">
 									<Avatar.Image

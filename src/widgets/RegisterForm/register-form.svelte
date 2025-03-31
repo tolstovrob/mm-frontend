@@ -32,14 +32,14 @@
 </script>
 
 <form
-	class="w-full max-w-screen-md mx-auto my-8 p-6"
+	class="mx-auto my-8 w-full max-w-screen-md p-6"
 	method="post"
 	onsubmit={handleSubmit}>
 	<FieldSet.Root>
 		<FieldSet.Title class="p-6 pt-10">Создать аккаунт</FieldSet.Title>
 		<FieldSet.Content>
 			<div class="grid gap-6">
-				<div class="grid gap-2 w-full max-w-72">
+				<div class="grid w-full max-w-72 gap-2">
 					<Label for="email">Адрес электронной почты</Label>
 					<Input
 						id="email"
@@ -51,7 +51,7 @@
 					{/if}
 				</div>
 				<div class="flex gap-6">
-					<div class="grid gap-2 w-full max-w-72">
+					<div class="grid w-full max-w-72 gap-2">
 						<Label for="firstName">Имя</Label>
 						<Input
 							id="firstName"
@@ -62,7 +62,7 @@
 							<p class="text-sm text-red-600">{$sender.data.firstName}</p>
 						{/if}
 					</div>
-					<div class="grid gap-2 w-full max-w-72">
+					<div class="grid w-full max-w-72 gap-2">
 						<Label for="lastName">Фамилия</Label>
 						<Input
 							id="lastName"
@@ -75,7 +75,7 @@
 					</div>
 				</div>
 				<div class="flex gap-6">
-					<div class="grid gap-2 w-full max-w-72">
+					<div class="grid w-full max-w-72 gap-2">
 						<Label for="password">Пароль</Label>
 						<PasswordInput
 							id="password"
@@ -87,7 +87,7 @@
 							<p class="text-sm text-red-600">{$sender.data.password}</p>
 						{/if}
 					</div>
-					<div class="grid gap-2 w-full max-w-72">
+					<div class="grid w-full max-w-72 gap-2">
 						<Label for="confirmPassword">Повтор пароля</Label>
 						<PasswordInput
 							id="confirmPassword"
@@ -102,21 +102,21 @@
 				</div>
 			</div>
 			{#if $sender.data && 'global' in $sender.data}
-				<p class="text-sm mt-4 text-red-600">{$sender.data.global}</p>
+				<p class="mt-4 text-sm text-red-600">{$sender.data.global}</p>
 			{/if}
 			{#if $sender.error}
-				<p class="text-sm mt-4 text-red-600">{$sender.error}</p>
+				<p class="mt-4 text-sm text-red-600">{$sender.error}</p>
 			{/if}
 		</FieldSet.Content>
 		<FieldSet.Footer>
 			<div
-				class="flex w-full justify-between flex-col gap-2 items-stretch md:flex-row md:items-center">
+				class="flex w-full flex-col items-stretch justify-between gap-2 md:flex-row md:items-center">
 				<span class="text-sm text-muted-foreground">
 					Продолжая, вы соглашаетесь с
 					<a
 						title="Пользовательское соглашение"
 						href="/user-agreement"
-						class="underline-offset-4 underline">пользовательским соглашением</a>
+						class="underline underline-offset-4">пользовательским соглашением</a>
 				</span>
 				<Button
 					type="submit"
@@ -131,7 +131,7 @@
 			</div>
 		</FieldSet.Footer>
 	</FieldSet.Root>
-	<div class="text-center text-sm mt-8">
+	<div class="mt-8 text-center text-sm">
 		Уже есть аккаунт?{' '}
 		<a
 			href="/login"
