@@ -1,7 +1,9 @@
 <script lang="ts">
 	import type { ICourseCredentials } from '$features/Course/types';
 	import * as Card from '$shared/components/ui/card';
+	import * as Avatar from '$shared/components/ui/avatar';
 	import * as AvatarGroup from '$shared/components/ui/avatar-group';
+	import * as HoverCard from '$shared/components/ui/hover-card';
 	import * as icons from 'lucide-svelte';
 	import type { SvelteComponent } from 'svelte';
 	import { staticfile } from '$shared/api';
@@ -32,17 +34,47 @@
 		<Card.Footer class="flex flex-wrap gap-2">
 			<AvatarGroup.Root>
 				{#each course.teachers.slice(0, 3) as teacher}
-					<AvatarGroup.Member>
-						{#if teacher.avatarURL}
-							<AvatarGroup.MemberImage
-								src={staticfile(teacher.avatarURL)}
-								alt={teacher.email} />
-						{:else}
-							<AvatarGroup.MemberFallback>
-								{teacher.firstName && teacher.firstName[0]}{teacher.lastName && teacher.lastName[0]}
-							</AvatarGroup.MemberFallback>
-						{/if}
-					</AvatarGroup.Member>
+					<HoverCard.Root>
+						<HoverCard.Trigger>
+							<AvatarGroup.Member>
+								{#if teacher.avatarURL}
+									<AvatarGroup.MemberImage
+										src={staticfile(teacher.avatarURL)}
+										alt={teacher.email} />
+								{:else}
+									<AvatarGroup.MemberFallback>
+										{teacher.firstName && teacher.firstName[0]}{teacher.lastName &&
+											teacher.lastName[0]}
+									</AvatarGroup.MemberFallback>
+								{/if}
+							</AvatarGroup.Member>
+						</HoverCard.Trigger>
+						<HoverCard.Content class="w-80">
+							<div class="flex items-center justify-between gap-4">
+								<Avatar.Root>
+									<Avatar.Image src={staticfile(teacher.avatarURL)} />
+									<Avatar.Fallback>
+										{teacher.firstName && teacher.firstName[0]}{teacher.lastName &&
+											teacher.lastName[0]}
+									</Avatar.Fallback>
+								</Avatar.Root>
+								<div class="space-y-1">
+									<a
+										href={`/users/${teacher.id}`}
+										class="text-sm font-semibold hover:underline hover:underline-offset-4">
+										{teacher.lastName}
+										{teacher.firstName}
+										{teacher.patronymic}
+									</a>
+									<a
+										href={`mailto:${teacher.email}`}
+										class="text-muted-foreground hover:underline hover:underline-offset-4">
+										{teacher.email}
+									</a>
+								</div>
+							</div>
+						</HoverCard.Content>
+					</HoverCard.Root>
 				{/each}
 				{#if course.teachers.length - 3 > 0}
 					<AvatarGroup.Etc plus={course.teachers.length - 3} />
