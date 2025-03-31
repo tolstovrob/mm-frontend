@@ -128,8 +128,12 @@
 			</div>
 		</FieldSet.Footer>
 	</FieldSet.Root>
+	<div class="text-center text-sm mt-8">
+		Уже есть аккаунт?{' '}
+		<a
+			href="/login"
+			class="underline underline-offset-4">
+			Войти
+		</a>
+	</div>
 </form>
-
-<pre> 
-	{JSON.stringify(formState)}
-</pre>
