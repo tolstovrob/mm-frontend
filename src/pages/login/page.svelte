@@ -7,14 +7,14 @@
 	<div class="flex flex-col gap-4 col-span-2 p-6 md:p-10">
 		<div class="flex justify-center gap-2 md:justify-start">
 			<a
-				title="Brand"
+				title="MergeMinds"
 				href="/"
 				class="flex items-center gap-2 font-medium select-none">
 				<div
 					class="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
 					<GitPullRequest class="size-4" />
 				</div>
-				MyBrand
+				MergeMinds
 			</a>
 		</div>
 		<div class="flex flex-1 items-center justify-center">
@@ -30,16 +30,23 @@
 
 		<div
 			class="w-full h-full absolute top-0 left-0 z-10 p-16 pt-32 text-lg 2xl:text-xl dark:bg-black dark:bg-opacity-50 flex flex-col gap-6">
-			<p>Some info about <strong>brand</strong>.</p>
+			<p><strong>MergeMinds</strong> &mdash; это как moodle. Только лучше.</p>
+			<div>
+				<strong>MergeMinds</strong> &mdash; с фичами Git:
+				<ul class="list-disc mt-4 ml-8">
+					<li>История попыток</li>
+					<li>Сравнение решений</li>
+					<li>Групповые проекты</li>
+				</ul>
+			</div>
+			<p><strong>MergeMinds</strong> &mdash; то, что нужно любому преподавателю.</p>
 			<p>
-				Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde esse illum dignissimos?
-				Excepturi neque fuga itaque totam obcaecati eos, illum cumque autem voluptate rerum ipsa,
-				temporibus delectus harum non ducimus.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime exercitationem fuga
-				doloribus porro officiis numquam, a consequuntur rem, ex saepe odio illum ratione eius, quae
-				laborum eaque similique quibusdam ullam?
+				Больше информации
+				<a
+					href="/register"
+					class="underline underline-offset-4">
+					тут
+				</a>. Присоединяйтесь!
 			</p>
 		</div>
 	</div>
