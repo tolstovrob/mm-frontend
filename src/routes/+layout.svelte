@@ -12,7 +12,7 @@
 <ModeWatcher />
 <QueryClientProvider client={queryClient}>
 	<Navbar />
-	<main class="container h-full border-x-[1px] border-border py-8">
+	<main class="container border-x-[1px] border-border py-8">
 		{@render children()}
 	</main>
 	<Footer />
