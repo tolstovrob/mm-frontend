@@ -3,7 +3,7 @@
 	import { GitPullRequest } from 'lucide-svelte';
 </script>
 
-<div class="grid min-h-svh xl:grid-cols-3 fixed top-0 left-0 w-full">
+<div class="grid min-h-svh xl:grid-cols-3 fixed top-0 left-0 w-full bg-background">
 	<div class="flex flex-col gap-4 col-span-2 p-6 md:p-10">
 		<div class="flex justify-center gap-2 md:justify-start">
 			<a
