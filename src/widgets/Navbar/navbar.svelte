@@ -79,9 +79,9 @@
 							variant="outline"
 							disabled={$session.isPending}
 							href="/profile"
-							class="max-w-56 overflow-hidden text-ellipsis line-clamp-1 flex flex-row gap-2">
+							class="max-w-56 min-w-36 overflow-hidden text-ellipsis line-clamp-1 flex flex-row gap-2">
 							{#if $session.isPending}
-								<Skeleton class="w-full h-5" />
+								<Skeleton class="w-36 h-5" />
 							{:else if $session.data && 'id' in $session.data}
 								<Avatar.Root class="h-6 w-6 text-xs">
 									<Avatar.Image
