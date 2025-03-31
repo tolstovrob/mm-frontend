@@ -1,12 +1,12 @@
 import { z } from 'zod';
-import type { LoginEmailRequest, RegisterForm } from './types';
+import type { ILoginForm, IRegisterForm } from './types';
 
 const loginSchema = z.object({
 	email: z.string().email('Некорректный адрес').nonempty('Это обязательное поле'),
 	password: z.string().nonempty('Это обязательное поле'),
 });
 
-export const validateLoginEmailForm = (formData: LoginEmailRequest): Record<string, string> => {
+export const validateLoginForm = (formData: ILoginForm): Record<string, string> => {
 	const result = loginSchema.safeParse(formData);
 
 	if (!result.success) {
@@ -21,8 +21,9 @@ export const validateLoginEmailForm = (formData: LoginEmailRequest): Record<stri
 const registerSchema = z
 	.object({
 		email: z.string().email('Некорректный адрес').nonempty('Это обязательное поле'),
-		firstName: z.string().nonempty('Это обязательное поле'),
 		lastName: z.string().nonempty('Это обязательное поле'),
+		firstName: z.string().nonempty('Это обязательное поле'),
+		patronymic: z.string(),
 		password: z.string().nonempty('Это обязательное поле'),
 		confirmPassword: z.string().nonempty('Это обязательное поле'),
 	})
@@ -31,7 +32,7 @@ const registerSchema = z
 		path: ['confirmPassword'],
 	});
 
-export const validateRegisterForm = (formData: RegisterForm): Record<string, string> => {
+export const validateRegisterForm = (formData: IRegisterForm): Record<string, string> => {
 	const result = registerSchema.safeParse(formData);
 
 	if (!result.success) {

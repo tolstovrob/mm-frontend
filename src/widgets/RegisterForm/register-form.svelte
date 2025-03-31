@@ -11,8 +11,9 @@
 	let showPassword: boolean = $state(false);
 	let formState: Auth.IRegisterForm = $state({
 		email: '',
-		firstName: '',
 		lastName: '',
+		firstName: '',
+		patronymic: '',
 		password: '',
 		confirmPassword: '',
 	});
@@ -39,30 +40,19 @@
 		<FieldSet.Title class="p-6 pt-10">Создать аккаунт</FieldSet.Title>
 		<FieldSet.Content>
 			<div class="grid gap-6">
-				<div class="grid w-full max-w-72 gap-2">
-					<Label for="email">Адрес электронной почты</Label>
-					<Input
-						id="email"
-						type="text"
-						bind:value={formState.email}
-						placeholder="aboba@example.org" />
-					{#if $sender.data && 'email' in $sender.data}
-						<p class="text-sm text-red-600">{$sender.data.email}</p>
-					{/if}
-				</div>
 				<div class="flex gap-6">
-					<div class="grid w-full max-w-72 gap-2">
-						<Label for="firstName">Имя</Label>
+					<div class="flex w-full max-w-72 flex-col justify-start gap-2">
+						<Label for="email">Адрес электронной почты</Label>
 						<Input
-							id="firstName"
+							id="email"
 							type="text"
-							bind:value={formState.firstName}
-							placeholder="Albert" />
-						{#if $sender.data && 'firstName' in $sender.data}
-							<p class="text-sm text-red-600">{$sender.data.firstName}</p>
+							bind:value={formState.email}
+							placeholder="aboba@example.org" />
+						{#if $sender.data && 'email' in $sender.data}
+							<p class="text-sm text-red-600">{$sender.data.email}</p>
 						{/if}
 					</div>
-					<div class="grid w-full max-w-72 gap-2">
+					<div class="flex w-full max-w-72 flex-col justify-start gap-2">
 						<Label for="lastName">Фамилия</Label>
 						<Input
 							id="lastName"
@@ -74,8 +64,33 @@
 						{/if}
 					</div>
 				</div>
+
 				<div class="flex gap-6">
-					<div class="grid w-full max-w-72 gap-2">
+					<div class="flex w-full max-w-72 flex-col justify-start gap-2">
+						<Label for="firstName">Имя</Label>
+						<Input
+							id="firstName"
+							type="text"
+							bind:value={formState.firstName}
+							placeholder="Albert" />
+						{#if $sender.data && 'firstName' in $sender.data}
+							<p class="text-sm text-red-600">{$sender.data.firstName}</p>
+						{/if}
+					</div>
+					<div class="flex w-full max-w-72 flex-col justify-start gap-2">
+						<Label for="patronymic">Отчество (при наличии)</Label>
+						<Input
+							id="patronymic"
+							type="text"
+							bind:value={formState.patronymic}
+							placeholder="Sergeevich" />
+						{#if $sender.data && 'patronymic' in $sender.data}
+							<p class="text-sm text-red-600">{$sender.data.patronymic}</p>
+						{/if}
+					</div>
+				</div>
+				<div class="flex gap-6">
+					<div class="flex w-full max-w-72 flex-col justify-start gap-2">
 						<Label for="password">Пароль</Label>
 						<PasswordInput
 							id="password"
@@ -87,7 +102,7 @@
 							<p class="text-sm text-red-600">{$sender.data.password}</p>
 						{/if}
 					</div>
-					<div class="grid w-full max-w-72 gap-2">
+					<div class="flex w-full max-w-72 flex-col justify-start gap-2">
 						<Label for="confirmPassword">Повтор пароля</Label>
 						<PasswordInput
 							id="confirmPassword"

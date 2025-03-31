@@ -8,13 +8,13 @@ import type {
 	IRegisterRequest,
 	IRegisterResponse,
 } from './types';
-import { validateLoginEmailForm, validateRegisterForm } from './internal';
+import { validateLoginForm, validateRegisterForm } from './internal';
 
 const loginMutationFn = async (
 	formData: ILoginForm,
 ): Promise<ILoginResponse | Record<string, string>> => {
 	const controller = new AbortController();
-	const validationResult = validateLoginEmailForm(formData);
+	const validationResult = validateLoginForm(formData);
 
 	if ('status' in validationResult && validationResult.status === 'OK') {
 		const timeout = setTimeout(

@@ -12,8 +12,9 @@ export interface ILoginResponse {
 
 export interface IRegisterRequest {
 	email: string;
-	firstName: string;
 	lastName: string;
+	firstName: string;
+	patronymic: string;
 	password: string;
 }
 
