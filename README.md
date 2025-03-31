@@ -1,10 +1,10 @@
-# Sveltekit-starter 🤠
+# MergeMinds 🤠
 
-Этот репозиторий содержит frontend проекта на sveltekit, который можно использовать как начальный шаблон для разработки.
+Этот репозиторий содержит frontend проекта MergeMinds.
 
 ## Обзор
 
-В шаблоне предустановлены необходимые для быстрого старта библиотеки:
+В проекте используются библиотеки:
 
 - [tailwindcss](https://tailwindcss.com/docs/installation/using-vite)
 - [shadcn-svelte](https://next.shadcn-svelte.com/docs)
@@ -18,8 +18,10 @@
 
 ## Взлетаем!
 
+<!-- TODO(tolstovrob): update remote when migrate to MergeMinds/mm-frontend -->
+
 ```sh
-git clone git@github.com:tolstovrob/sveltekit-starter.git
+git clone git@github.com:tolstovrob/mm-frontend.git
 cd sveltekit-starter
 yarn
 yarn dev
