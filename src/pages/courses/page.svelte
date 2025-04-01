@@ -1,20 +1,22 @@
 <script lang="ts">
-	import { allCourses } from '$features/Course/api';
+	import { fetchCourses } from '$features/Course/api';
 	import { Button } from '$shared/components/ui/button';
 	import { SearchBar } from '$shared/components/ui/search-bar';
 	import { Skeleton } from '$shared/components/ui/skeleton';
 	import { CourseCard } from '$widgets/CourseCard';
 	import { RotateCcw } from 'lucide-svelte';
 
-	const coursesQueue = allCourses();
 	let filter: string = $state('');
+	const coursesQueue = $derived(fetchCourses(filter));
 </script>
 
 <header class="mt-6 grid grid-cols-1 grid-rows-2 gap-8 lg:grid-cols-2 lg:grid-rows-1">
 	<h1 class="text-3xl font-bold">Курсы</h1>
 	<SearchBar
 		bind:filter
-		handleSubmit={() => {}} />
+		handleSubmit={() => {
+			$coursesQueue.refetch();
+		}} />
 </header>
 
 <div class="my-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
