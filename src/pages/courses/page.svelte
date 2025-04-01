@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { fetchCourses } from '$features/Course/api';
+	import * as Course from '$features/Course/api';
 	import { Button } from '$shared/components/ui/button';
 	import { SearchBar } from '$shared/components/ui/search-bar';
 	import { Skeleton } from '$shared/components/ui/skeleton';
@@ -7,7 +7,7 @@
 	import { RotateCcw } from 'lucide-svelte';
 
 	let filter: string = $state('');
-	const coursesQueue = $derived(fetchCourses(filter));
+	const coursesQueue = $derived(Course.fetchCourses(filter));
 </script>
 
 <header class="mt-6 grid grid-cols-1 grid-rows-2 gap-8 lg:grid-cols-2 lg:grid-rows-1">
