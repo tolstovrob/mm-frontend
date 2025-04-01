@@ -7,7 +7,7 @@
 	import { RotateCcw } from 'lucide-svelte';
 
 	let filter: string = $state('');
-	const coursesQueue = $derived(Course.fetchCourses(filter));
+	const coursesQuery = $derived(Course.fetchCourses(filter));
 </script>
 
 <header class="mt-6 grid grid-cols-1 grid-rows-2 gap-8 lg:grid-cols-2 lg:grid-rows-1">
@@ -15,32 +15,32 @@
 	<SearchBar
 		bind:filter
 		handleSubmit={() => {
-			$coursesQueue.refetch();
+			$coursesQuery.refetch();
 		}} />
 </header>
 
 <div class="my-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-	{#if $coursesQueue.isPending}
+	{#if $coursesQuery.isPending}
 		<Skeleton class="min-h-40" />
 		<Skeleton class="min-h-40" />
 		<Skeleton class="min-h-40" />
 		<Skeleton class="min-h-40" />
 		<Skeleton class="min-h-40" />
 		<Skeleton class="min-h-40" />
-	{:else if $coursesQueue.error}
+	{:else if $coursesQuery.error}
 		<div class="col-span-1 flex flex-row items-center gap-4 md:col-span-2 lg:col-span-3">
 			<span class="text-lg text-destructive">
-				Не удалось загрузить курсы: {$coursesQueue.error}
+				Не удалось загрузить курсы: {$coursesQuery.error}
 			</span>
 			<Button
 				size="icon"
 				variant="ghost"
-				onclick={() => $coursesQueue.refetch()}>
+				onclick={() => $coursesQuery.refetch()}>
 				<RotateCcw />
 			</Button>
 		</div>
 	{:else}
-		{#each $coursesQueue.data as course}
+		{#each $coursesQuery.data as course}
 			<CourseCard {course} />
 		{:else}
 			<div>
@@ -49,7 +49,7 @@
 					class="ml-2"
 					size="icon"
 					variant="ghost"
-					onclick={() => $coursesQueue.refetch()}>
+					onclick={() => $coursesQuery.refetch()}>
 					<RotateCcw />
 				</Button>
 			</div>
