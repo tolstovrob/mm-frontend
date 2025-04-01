@@ -1,30 +1,21 @@
 <script lang="ts">
 	import * as HoverCard from '$shared/components/ui/hover-card';
 	import * as Avatar from '$shared/components/ui/avatar';
-	import * as AvatarGroup from '$shared/components/ui/avatar-group';
 	import * as User from '$features/User';
 	import { staticfile } from '$shared/api';
+	import type { Snippet } from 'svelte';
 
 	type Props = {
 		user: User.IUserCredentials;
+		children: Snippet;
 	};
 
-	let { user }: Props = $props();
+	let { user, children }: Props = $props();
 </script>
 
 <HoverCard.Root>
 	<HoverCard.Trigger>
-		<AvatarGroup.Member>
-			{#if user.avatarURL}
-				<AvatarGroup.MemberImage
-					src={staticfile(user.avatarURL)}
-					alt={user.email} />
-			{:else}
-				<AvatarGroup.MemberFallback>
-					{user.firstName && user.firstName[0]}{user.lastName && user.lastName[0]}
-				</AvatarGroup.MemberFallback>
-			{/if}
-		</AvatarGroup.Member>
+		{@render children()}
 	</HoverCard.Trigger>
 	<HoverCard.Content class="w-80">
 		<div class="flex items-center justify-between gap-4">

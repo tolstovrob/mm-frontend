@@ -5,6 +5,7 @@
 	import * as icons from 'lucide-svelte';
 	import type { SvelteComponent } from 'svelte';
 	import { UserCard } from '$shared/components/ui/user-card';
+	import { staticfile } from '$shared/api';
 
 	type Props = { course: ICourseCredentials };
 
@@ -32,7 +33,20 @@
 		<Card.Footer class="flex flex-wrap gap-2">
 			<AvatarGroup.Root>
 				{#each course.teachers.slice(0, 3) as teacher}
-					<UserCard user={teacher} />
+					<UserCard user={teacher}>
+						<AvatarGroup.Member>
+							{#if teacher.avatarURL}
+								<AvatarGroup.MemberImage
+									src={staticfile(teacher.avatarURL)}
+									alt={teacher.email} />
+							{:else}
+								<AvatarGroup.MemberFallback>
+									{teacher.firstName && teacher.firstName[0]}{teacher.lastName &&
+										teacher.lastName[0]}
+								</AvatarGroup.MemberFallback>
+							{/if}
+						</AvatarGroup.Member>
+					</UserCard>
 				{/each}
 				{#if course.teachers.length - 3 > 0}
 					<AvatarGroup.Etc plus={course.teachers.length - 3} />
