@@ -1,5 +1,5 @@
 <script lang="ts">
-	import * as Course from '$features/Course/api';
+	import * as Course from '$features/Course';
 	import { Button } from '$shared/components/ui/button';
 	import { SearchBar } from '$shared/components/ui/search-bar';
 	import { Skeleton } from '$shared/components/ui/skeleton';
