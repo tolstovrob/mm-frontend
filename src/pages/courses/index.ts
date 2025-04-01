@@ -1,3 +1,5 @@
-import Page from './page.svelte';
+import CoursesPage from './page.svelte';
+import CoursePage from './id/page.svelte';
 
-export { Page as CoursesPage };
+export { CoursesPage };
+export { CoursePage };
