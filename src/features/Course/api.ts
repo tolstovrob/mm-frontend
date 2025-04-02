@@ -7,9 +7,19 @@ export const fetchCourses = (filter: string): QueryResponse<ICourseCredentials[]
 	return createQuery({
 		queryKey: ['courses', 'fetch'],
 		queryFn: async () => {
-			return await fetch(backend('/courses' + (filter !== '' ? `?filter=${filter}` : ''))).then(
-				(data) => data.json() as unknown as ICourseCredentials[],
+			const controller = new AbortController();
+			const timeout = setTimeout(
+				() => {
+					controller.abort('Превышено время ожидания');
+				},
+				import.meta.env.VITE_SERVER_RESPONSE_TIMEOUT_MS ?? 10000,
 			);
+			return await fetch(backend('/courses' + (filter !== '' ? `?filter=${filter}` : '')), {
+				signal: controller.signal,
+			}).then((data) => {
+				clearTimeout(timeout);
+				return data.json() as unknown as ICourseCredentials[];
+			});
 		},
 	});
 };
@@ -18,9 +28,17 @@ export const fetchCourseById = (id: number): QueryResponse<ICourse> => {
 	return createQuery({
 		queryKey: ['course', 'fetch', 'id'],
 		queryFn: async () => {
-			return await fetch(backend(`/courses/${id}`)).then(
-				(data) => data.json() as unknown as ICourse,
+			const controller = new AbortController();
+			const timeout = setTimeout(
+				() => {
+					controller.abort('Превышено время ожидания');
+				},
+				import.meta.env.VITE_SERVER_RESPONSE_TIMEOUT_MS ?? 10000,
 			);
+			return await fetch(backend(`/courses/${id}`), { signal: controller.signal }).then((data) => {
+				clearTimeout(timeout);
+				return data.json() as unknown as ICourseCredentials[];
+			});
 		},
 	});
 };
