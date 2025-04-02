@@ -26,7 +26,7 @@
 </script>
 
 <nav
-	class="sticky top-0 z-10 w-full border-b-[1px] border-border bg-background bg-opacity-75 backdrop-blur-sm">
+	class="sticky top-0 z-50 w-full border-b-[1px] border-border bg-background bg-opacity-75 backdrop-blur-sm">
 	<div
 		class="container flex flex-row items-center justify-between border-x-[1px] border-border py-3">
 		<a
