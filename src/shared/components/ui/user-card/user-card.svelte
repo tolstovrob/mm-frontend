@@ -20,7 +20,9 @@
 	<HoverCard.Content class="w-80">
 		<div class="flex items-center justify-between gap-4">
 			<Avatar.Root>
-				<Avatar.Image src={staticfile(user.avatarURL)} />
+				{#if user.avatarURL}
+					<Avatar.Image src={staticfile(user.avatarURL)} />
+				{/if}
 				<Avatar.Fallback>
 					{user.firstName && user.firstName[0]}{user.lastName && user.lastName[0]}
 				</Avatar.Fallback>
