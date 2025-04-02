@@ -5,12 +5,13 @@ import type { IUserCredentials } from '$features/User';
 export interface ICourseItemCredentials {
 	id: number;
 	title: string;
-	type: 'info' | 'upload' | 'select' | 'quiz';
+	type: 'info' | 'upload' | 'select' | 'quiz' | 'file';
 	/* NOTE(tolstovrob): 
 		info for block of theory
 		upload for files
 		select for... select as you guessed
 		quiz for... quiz, yeah
+		file for files, youre right
 	*/
 }
 
