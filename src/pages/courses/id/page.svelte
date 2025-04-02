@@ -5,6 +5,9 @@
 	import * as Course from '$features/Course';
 	import { UserCard } from '$shared/components/ui/user-card';
 	import * as User from '$features/User';
+	import { Skeleton } from '$shared/components/ui/skeleton';
+	import { Button } from '$shared/components/ui/button';
+	import { RotateCcw } from 'lucide-svelte';
 
 	const courseId: number = page.params.id as unknown as number;
 
@@ -21,7 +24,21 @@
 	const courseQuery = Course.fetchCourseById(courseId);
 </script>
 
-{#if $courseQuery.data}
+{#if $courseQuery.isPending}
+	<Skeleton class="h-64 w-full" />
+{:else if $courseQuery.error}
+	<div class="col-span-1 flex flex-row items-center gap-4 md:col-span-2 lg:col-span-3">
+		<span class="text-lg text-destructive">
+			Не удалось загрузить курс. Ошибка: {$courseQuery.error}
+		</span>
+		<Button
+			size="icon"
+			variant="ghost"
+			onclick={() => $courseQuery.refetch()}>
+			<RotateCcw />
+		</Button>
+	</div>
+{:else if $courseQuery.data}
 	<Card.Root>
 		<Card.Header class="flex w-full max-w-screen-md  flex-col gap-4">
 			<Card.Title class="line-clamp-2 text-ellipsis text-3xl font-bold">
