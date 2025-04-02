@@ -8,6 +8,8 @@
 	import { Skeleton } from '$shared/components/ui/skeleton';
 	import { Button } from '$shared/components/ui/button';
 	import { RotateCcw } from 'lucide-svelte';
+	import * as icons from 'lucide-svelte';
+	import type { SvelteComponent } from 'svelte';
 
 	const courseId: number = page.params.id as unknown as number;
 
@@ -22,6 +24,15 @@
 	});
 
 	const courseQuery = Course.fetchCourseById(courseId);
+	const Icon = $derived(
+		($courseQuery.data && $courseQuery.data.icon in icons
+			? icons[$courseQuery.data.icon as keyof typeof icons]
+			: icons.Book) as typeof SvelteComponent<{
+			size?: number;
+			color?: string;
+			class?: string;
+		}>,
+	);
 </script>
 
 {#if $courseQuery.isPending}
@@ -39,7 +50,10 @@
 		</Button>
 	</div>
 {:else if $courseQuery.data}
-	<Card.Root>
+	<Card.Root class="relative overflow-hidden">
+		<div class="absolute right-0 z-0 opacity-5 transition-all">
+			<Icon size={324} />
+		</div>
 		<Card.Header class="flex w-full max-w-screen-md  flex-col gap-4">
 			<Card.Title class="line-clamp-2 text-ellipsis text-3xl font-bold">
 				{$courseQuery.data?.title}
