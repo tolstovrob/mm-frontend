@@ -90,27 +90,29 @@
 					<ul class="flex flex-col gap-4">
 						{#snippet item(courseId: number, courseItem: Course.ICourseItemCredentials)}
 							<a
-								href={`/courses/${courseId}/${courseItem.id}`}
+								href={courseItem.state === 'allowed'
+									? `/courses/${courseId}/${courseItem.id}`
+									: 'javascript:void()'}
 								class={`flex max-w-max items-center gap-4 text-lg underline-offset-4 ${courseItem.state === 'allowed' && 'hover:underline'} ${courseItem.state === 'not-allowed' && 'cursor-not-allowed'} ${courseItem.state === 'hidden' && 'hidden'}`}>
 								{#if courseItem.type === 'info'}
 									<icons.Clipboard
-										size={20}
+										size={24}
 										class="text-muted-foreground" />
 								{:else if courseItem.type === 'select'}
 									<icons.CircleCheckBig
-										size={20}
+										size={24}
 										class="text-muted-foreground" />
 								{:else if courseItem.type === 'quiz'}
 									<icons.ListTodo
-										size={20}
+										size={24}
 										class="text-muted-foreground" />
 								{:else if courseItem.type === 'upload'}
 									<icons.Upload
-										size={20}
+										size={24}
 										class="text-muted-foreground" />
 								{:else if courseItem.type === 'file'}
 									<icons.Paperclip
-										size={20}
+										size={24}
 										class="text-muted-foreground" />
 								{/if}
 								<span
