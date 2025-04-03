@@ -12,7 +12,7 @@
 	import type { SvelteComponent } from 'svelte';
 	import { Badge } from '$shared/components/ui/badge';
 
-	const courseId: number = page.params.id as unknown as number;
+	const courseId: number = page.params.groupId as unknown as number;
 
 	$effect(() => {
 		if (
