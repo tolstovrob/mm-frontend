@@ -6,6 +6,7 @@ export interface ICourseItemCredentials {
 	id: number;
 	title: string;
 	type: 'info' | 'upload' | 'select' | 'quiz' | 'file';
+	state: 'allowed' | 'not-allowed' | 'hidden';
 	/* NOTE(tolstovrob): 
 		info for block of theory
 		upload for files
@@ -20,7 +21,6 @@ export interface ICourseItem extends ICourseItemCredentials {}
 export interface ICourseGroup {
 	id: number;
 	title: string;
-	isAllowed: boolean;
 	items: ICourseItemCredentials[];
 }
 
