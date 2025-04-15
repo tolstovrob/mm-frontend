@@ -5,8 +5,8 @@
  * DO START IT WITH `/` (not `posts`, but `/posts`)
  * @returns complete route on server
  */
-export const backend = (endpoint: string): string =>
-	`${import.meta.env.VITE_BACKEND_PROTOCOL}://${import.meta.env.VITE_BACKEND_HOST}:${import.meta.env.VITE_BACKEND_PORT}${endpoint}`;
+export const backend = (endpoint: string, version: number = 1): string =>
+	`${import.meta.env.VITE_BACKEND_PROTOCOL}://${import.meta.env.VITE_BACKEND_HOST}:${import.meta.env.VITE_BACKEND_PORT}/api/v${version}${endpoint}`;
 
 /**
  * Creates and returns a full server route to a static file
