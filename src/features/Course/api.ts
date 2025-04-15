@@ -1,11 +1,11 @@
 import { createQuery } from '@tanstack/svelte-query';
 import { backend, type QueryResponse } from '$shared/api';
-import type { ICourse, ICourseCredentials } from './types';
+import type { ICourse, ICourseMeta } from './types';
 
 // TODO(tolstovrob): paginate courses
-export const fetchCourses = (filter: string): QueryResponse<ICourseCredentials[]> => {
+export const fetchCourses = (filter: string, page: number = 1): QueryResponse<ICourseMeta[]> => {
 	return createQuery({
-		queryKey: ['courses', 'fetch'],
+		queryKey: ['courses', 'fetch', 'filter', 'page'],
 		queryFn: async () => {
 			const controller = new AbortController();
 			const timeout = setTimeout(
@@ -14,11 +14,14 @@ export const fetchCourses = (filter: string): QueryResponse<ICourseCredentials[]
 				},
 				import.meta.env.VITE_SERVER_RESPONSE_TIMEOUT_MS ?? 10000,
 			);
-			return await fetch(backend('/courses' + (filter !== '' ? `?filter=${filter}` : '')), {
-				signal: controller.signal,
-			}).then((data) => {
+			return await fetch(
+				backend('/courses' + (filter !== '' ? `?filter=${filter}` : '') + `?page=${page}`),
+				{
+					signal: controller.signal,
+				},
+			).then((data) => {
 				clearTimeout(timeout);
-				return data.json() as unknown as ICourseCredentials[];
+				return data.json() as unknown as ICourseMeta[];
 			});
 		},
 	});
@@ -37,7 +40,7 @@ export const fetchCourseById = (id: number): QueryResponse<ICourse> => {
 			);
 			return await fetch(backend(`/courses/${id}`), { signal: controller.signal }).then((data) => {
 				clearTimeout(timeout);
-				return data.json() as unknown as ICourseCredentials[];
+				return data.json() as unknown as ICourse;
 			});
 		},
 	});
