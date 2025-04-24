@@ -1,14 +1,31 @@
 import { createQuery } from '@tanstack/svelte-query';
-import { backend, type QueryResponse } from '$shared/api';
-import type { IBlock } from './types';
+import { abortableFetch, backend, type QueryResponse } from '$shared/api';
+import type { IBlockResponse } from './types';
 
-export const fetchBlocksByIds = (ids: number[]): QueryResponse<IBlock[]> => {
+export const fetchBlockById = (id: string): QueryResponse<IBlockResponse> => {
 	return createQuery({
-		queryKey: ['fetch', 'block', 'id', 'many'],
+		queryKey: ['block', 'fetch', 'id'],
+		queryFn: async () =>
+			abortableFetch(backend(`/blocks/${id}`), {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			}),
+	});
+};
+
+// NOTE(tolstovrob): need to be tested on actual API. Try partially insert invalid ids!
+export const fetchBlocksByIds = (ids: string[]): QueryResponse<IBlockResponse[]> => {
+	return createQuery({
+		queryKey: ['blocks', 'fetch', 'ids'],
 		queryFn: async () => {
 			return await Promise.all(
 				ids.map((id) =>
-					fetch(backend(`/blocks/${id}`)).then((data) => data.json() as unknown as IBlock[]),
+					abortableFetch(backend(`/blocks/${id}`), {
+						headers: {
+							'Content-Type': 'application/json',
+						},
+					}),
 				),
 			);
 		},
