@@ -1,5 +1,5 @@
 /**
- * Creates and returns a full server route to specific endpoint
+ * Creates and returns a full server route to specific endpoint. Something like http://127.168.0.1/api/v1/aboba
  *
  * @param endpoint which you need to get full route to,
  * DO START IT WITH `/` (not `posts`, but `/posts`)
