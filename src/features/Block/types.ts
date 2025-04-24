@@ -5,14 +5,12 @@ const TBlockType = {
 
 export type TBlockType = (typeof TBlockType)[keyof typeof TBlockType];
 
-interface IBlockData {
-	[key: string]: number | boolean | string | string[] | IBlockData;
+export interface IBlockData {
+	[key: string]: unknown;
 }
 
-export { type IBlockData };
-
-export interface IBlock {
+export interface IBlockResponse {
+	courseId: string;
 	blockType: TBlockType;
 	data: IBlockData;
-	courseId: number;
 }
