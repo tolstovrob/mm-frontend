@@ -38,6 +38,8 @@ export interface ILoginRequest {
 	password: string;
 }
 
+export type ILoginForm = ILoginRequest;
+
 export interface ILoginResponse {
 	status: number;
 	message: string;
@@ -74,87 +76,56 @@ export interface IRegisterResponse {
 ### Мутации
 
 ```ts
-import { backend, type MutationResponse } from '$shared/api';
+import { abortableFetch, backend, validateData, type MutationResponse } from '$shared/api';
 import { createMutation } from '@tanstack/svelte-query';
 import type { ILoginRequest, ILoginResponse } from './types';
-import { validateLoginForm, validateRegisterForm } from './internal';
+import { loginSchema } from './internal';
 
-const loginMutationFn = async (
-	formData: ILoginRequest,
-): Promise<ILoginResponse | Record<string, string>> => {
-	const validationResult = validateLoginForm(formData);
-
-	if ('status' in validationResult && validationResult.status === 'OK') {
-		return await fetch(backend('/login'), {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(formData),
-		})
-			.then((data) => data.json())
-			.then((data) =>
-				data?.status === 200
-					? (data as unknown as ILoginResponse)
-					: 'errors' in data
-						? (data.errors as Record<string, string>)
-						: { global: 'Неизвестная ошибка, попробуйте позже' },
-			);
-	} else {
-		return validationResult;
-	}
-};
-
-export const login = (
-	formData: ILoginRequest,
-): MutationResponse<ILoginRequest, ILoginResponse | Record<string, string>> => {
+export const login = (loginData: ILoginForm): MutationResponse<ILoginRequest, ILoginResponse> => {
 	return createMutation({
 		mutationKey: ['auth', 'login'],
-		mutationFn: () => loginMutationFn(formData),
-	});
-};
-```
+		mutationFn: async () => {
+			const loginRequest = validateData(loginSchema, loginData);
 
-Давай разбираться: ключевая функция здесь `login`. Именно с ней мы будем работать внутри интерфейса. В ней мы создаём мутацию для работы с POST запросом на `/login`
-
-> Обратим внимание на то, что для POST запросов используются мутации, а для GET &mdash; очереди.
-
-Итак, рассмотрим её спецификацию. Она принимает в себя данные формы для входа. Так получилось, что они совпали с итоговым запросом, что в общем случае не обязательно (пример &mdash; регистрация). Возвращает же она специальный тип `MutationResponse<TRequest, TResponse>`. Это лишь высокоуровневая обёртка над типами Tanstack Query. По сути она означает, что в мутации мы отправляем что-то типа `TRequest`, а на выходе получаем ответ типа `TResponse`.
-
-При вызове функции мы создадим и вернём мутацию Tanstack Query, в которой вызываем **асинхронную функцию мутации**. Чтобы не загромождать код, вынесем её в отдельную функцию `loginMutationFn`.
-
-Внутри неё мы валидируем форму (код валидации лежит в `internal.ts` &mdash; посмотрим его позже). Если она не прошла валидацию, тьо вернём `Record<string, string>`, где ключ это поле формы, а значение это описание ошибки. В случае если она прошла валидацию, то делаем запрос на сервер. Функция `backend` вспомогательная &mdash; в неё мы можем передать эндпоинт, а она соберёт полный URL из переменных окружения (смотри .env.example). После отправки запроса мы конвертируем данные в JSON, а затем начинаем изучать ответ сервера:
-
-- Если сервер отправил нам что-то со статусом 200 &mdash; это хорошо, давайте явно приведём к типу `ILoginResponse` и вернём это в поле `data` соответствующей мутации.
-
-- Иначе, сервер пришлёт нам объект с ошибками. Их мы преобразуем и для единообразия вернём как `Record<string, string>`, где ключ это поле формы, а значение это описание ошибки.
-
-- Иначе, если нет поля с ошибками или положительного ответа, то мы не можем это никак обработать, поэтому как в прошлом случае вернём `Record<string, string>` с полем `global` &mdash; соответствующее поле для ошибок можно поместить где-нибудь под формой и отправлять туда общие ошибки.
-
-### Очереди
-
-Аналогично опишем и очередь &mdash; скажем, для получения сессии. Конечно, лучше это вынести в фичу User, как это сделано в шаблоне, но не будем заморачиваться над такими вещами в примере:
-
-```ts
-import { createQuery } from '@tanstack/svelte-query';
-import { backend, type QueryResponse } from '$shared/api';
-import type { IUserCredentials } from './types';
-
-export const session = (): QueryResponse<IUserCredentials> => {
-	return createQuery({
-		queryKey: ['user', 'session'],
-		queryFn: async () => {
-			return await fetch(backend('/session')).then(
-				(data) => data.json() as unknown as IUserCredentials,
-			);
+			return abortableFetch(backend('/login'), {
+				method: 'POST',
+				body: JSON.stringify(loginRequest),
+			});
 		},
 	});
 };
 ```
 
-В данном примере всё абсолютно аналогично, за исключением того, что мы возвращаем очередь, а не мутацию.
+Здесь всё тривиально: мы создаём мутацию для POST запроса, внутри которой мы валидируем форму и отправляем на сервер данные. Функция `abortableFetch` корректно отправит запрос за нас, обработает все ошибки и возьмёт на себя управление timeout.
 
-### Мутация или очередь?
+> Обратите внимание, что для GET запросов мы используем запросы (`query`), а для остальных (где нам нужно отправить какую-то информацию на сервер) &mdash; мутации (`mutation`)
 
-Главное отличие мутации от очереди: первые можно динамически "толкать", чтобы они отправляли что-то на сервер. В случае с отправкой формы это наиболее удобный способ. Когда нам нужно (скажем, `onsubmit`) мы просто "толкнём" мутацию вызовом `$sender.mutate(formState)` и данные полетят на сервер.
+### Запросы
+
+Аналогично опишем и запрос &mdash; скажем, для получения сессии.
+
+```ts
+import {
+	abortableFetch,
+	backend,
+	type QueryResponse,
+} from '$shared/api';
+import { createQuery } from '@tanstack/svelte-query';
+import type { ISessionResponse } from './types';
+
+export const session = (): QueryResponse<ISessionResponse> => {
+	return createQuery({
+		queryKey: ['auth', 'session'],
+		queryFn: async () => abortableFetch(backend('/session'));
+	});
+};
+```
+
+В данном примере всё абсолютно аналогично, за исключением того, что мы возвращаем запрос, а не мутацию.
+
+### Мутация или запрос?
+
+Главное отличие мутации от запроса: первые можно динамически &laquo;толкать&raquo;, чтобы они отправляли что-то на сервер. В случае с отправкой формы это наиболее удобный способ. Когда нам нужно (скажем, `onsubmit`) мы просто "толкнём" мутацию вызовом `$sender.mutate(formState)` и данные полетят на сервер.
 
 ## Шаг 3: внутренние функции
 
@@ -165,21 +136,9 @@ const loginSchema = z.object({
 	email: z.string().email('Некорректный адрес').nonempty('Это обязательное поле'),
 	password: z.string().nonempty('Это обязательное поле'),
 });
-
-export const validateLoginForm = (formData: ILoginRequest): Record<string, string> => {
-	const result = loginSchema.safeParse(formData);
-
-	if (!result.success) {
-		const errors: Record<string, string> = {};
-		result.error.errors.forEach((err) => (errors[err.path[0]] = err.message));
-		return errors;
-	}
-
-	return { status: 'OK' };
-};
 ```
 
-Мы создаём Zod-схемы для валидации, а затем экспортируем функцию для проверки на соответствие этой схеме. В случае ошибки мы получим `Record<string, string>`, где ключ это поле формы, а значение это описание ошибки. В случае успеха мы также получим `Record<string, string>`, но с одним полем `{ status: 'OK' }`.
+Мы создаём Zod-схемы для валидации, которые будут передаваться во внутреннюю функцию `validateData`. Она вернёт данные обратно, но если валидация не пройдена, то перед этим выкинет ошибку с кодом `VALIDATION_ERROR`, которую можно отследить
 
 ## Шаг 4: хранилища?
 
