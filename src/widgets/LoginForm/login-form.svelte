@@ -6,6 +6,7 @@
 	import * as Auth from '$features/Auth';
 	import { Loader2 } from 'lucide-svelte';
 	import { goto } from '$app/navigation';
+	import type { IValidationError } from '$shared/api';
 
 	let showPassword: boolean = $state(false);
 	let formState: Auth.ILoginForm = $state({
@@ -13,12 +14,34 @@
 		password: '',
 	});
 
+	let errorState: Auth.ILoginForm & { global: string } = $state({
+		email: '',
+		password: '',
+		global: '',
+	});
+
 	const sender = Auth.login(formState);
 
 	$effect(() => {
-		if ($sender.data?.status === 200) {
+		if ($sender.status === 'success') {
 			// TODO(tolstovrob): implement some kind of store or smth
 			goto('/');
+		}
+	});
+
+	$effect(() => {
+		Object.keys(errorState).forEach((item) => (errorState[item as keyof typeof errorState] = ''));
+
+		if ($sender.isError) {
+			if ($sender.error.code === 'VALIDATION_ERROR') {
+				($sender.error as IValidationError).issues.map((item) => {
+					if (typeof item.path[0] === 'string' && item.path[0] in errorState) {
+						errorState[item.path[0] as keyof typeof errorState] = item.message;
+					}
+				});
+			} else {
+				errorState.global = 'Внутренняя ошибка сервера. Попробуйте позднее';
+			}
 		}
 	});
 
@@ -44,8 +67,8 @@
 				type="text"
 				bind:value={formState.email}
 				placeholder="aboba@example.org" />
-			{#if $sender.data && 'email' in $sender.data}
-				<p class="text-sm text-red-600">{$sender.data.email}</p>
+			{#if errorState.email}
+				<p class="text-sm text-red-600">{errorState.email}</p>
 			{/if}
 		</div>
 		<div class="grid gap-2">
@@ -66,8 +89,8 @@
 					event.preventDefault();
 					showPassword = !showPassword;
 				}} />
-			{#if $sender.data && 'password' in $sender.data}
-				<p class="text-sm text-red-600">{$sender.data.password}</p>
+			{#if errorState.password}
+				<p class="text-sm text-red-600">{errorState.password}</p>
 			{/if}
 		</div>
 		<Button
@@ -80,11 +103,8 @@
 				Войти
 			{/if}
 		</Button>
-		{#if $sender.data && 'global' in $sender.data}
-			<p class="text-sm text-red-600">{$sender.data.global}</p>
-		{/if}
-		{#if $sender.error}
-			<p class="text-sm text-red-600">{$sender.error}</p>
+		{#if errorState.global}
+			<p class="text-sm text-red-600">{errorState.global}</p>
 		{/if}
 		<div
 			class="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">

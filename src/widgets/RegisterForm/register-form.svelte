@@ -7,6 +7,7 @@
 	import { goto } from '$app/navigation';
 	import * as FieldSet from '$shared/components/ui/field-set';
 	import { Loader2 } from 'lucide-svelte';
+	import type { IValidationError } from '$shared/api';
 
 	let showPassword: boolean = $state(false);
 	let formState: Auth.IRegisterForm = $state({
@@ -18,11 +19,37 @@
 		confirmPassword: '',
 	});
 
+	let errorState: Auth.IRegisterForm & { global: string } = $state({
+		email: '',
+		lastName: '',
+		firstName: '',
+		patronymic: '',
+		password: '',
+		confirmPassword: '',
+		global: '',
+	});
+
 	const sender = Auth.register(formState);
 
 	$effect(() => {
-		if ($sender.data?.status === 200) {
+		if ($sender.status === 'success') {
 			goto('/login');
+		}
+	});
+
+	$effect(() => {
+		Object.keys(errorState).forEach((item) => (errorState[item as keyof typeof errorState] = ''));
+
+		if ($sender.isError) {
+			if ($sender.error.code === 'VALIDATION_ERROR') {
+				($sender.error as IValidationError).issues.map((item) => {
+					if (typeof item.path[0] === 'string' && item.path[0] in errorState) {
+						errorState[item.path[0] as keyof typeof errorState] = item.message;
+					}
+				});
+			} else {
+				errorState.global = 'Внутренняя ошибка сервера. Попробуйте позднее';
+			}
 		}
 	});
 
@@ -48,8 +75,8 @@
 							type="text"
 							bind:value={formState.email}
 							placeholder="aboba@example.org" />
-						{#if $sender.data && 'email' in $sender.data}
-							<p class="text-sm text-red-600">{$sender.data.email}</p>
+						{#if errorState.email}
+							<p class="text-sm text-red-600">{errorState.email}</p>
 						{/if}
 					</div>
 					<div class="flex w-full flex-col justify-start gap-2 lg:max-w-72">
@@ -59,8 +86,8 @@
 							type="text"
 							bind:value={formState.lastName}
 							placeholder="Einstein" />
-						{#if $sender.data && 'lastName' in $sender.data}
-							<p class="text-sm text-red-600">{$sender.data.lastName}</p>
+						{#if errorState.lastName}
+							<p class="text-sm text-red-600">{errorState.lastName}</p>
 						{/if}
 					</div>
 				</div>
@@ -73,8 +100,8 @@
 							type="text"
 							bind:value={formState.firstName}
 							placeholder="Albert" />
-						{#if $sender.data && 'firstName' in $sender.data}
-							<p class="text-sm text-red-600">{$sender.data.firstName}</p>
+						{#if errorState.firstName}
+							<p class="text-sm text-red-600">{errorState.firstName}</p>
 						{/if}
 					</div>
 					<div class="flex w-full flex-col justify-start gap-2 lg:max-w-72">
@@ -84,8 +111,8 @@
 							type="text"
 							bind:value={formState.patronymic}
 							placeholder="Sergeevich" />
-						{#if $sender.data && 'patronymic' in $sender.data}
-							<p class="text-sm text-red-600">{$sender.data.patronymic}</p>
+						{#if errorState.patronymic}
+							<p class="text-sm text-red-600">{errorState.patronymic}</p>
 						{/if}
 					</div>
 				</div>
@@ -98,8 +125,8 @@
 							{showPassword}
 							toggleShowPassword={() => (showPassword = !showPassword)}
 							bind:value={formState.password} />
-						{#if $sender.data && 'password' in $sender.data}
-							<p class="text-sm text-red-600">{$sender.data.password}</p>
+						{#if errorState.password}
+							<p class="text-sm text-red-600">{errorState.password}</p>
 						{/if}
 					</div>
 					<div class="flex w-full flex-col justify-start gap-2 lg:max-w-72">
@@ -110,17 +137,14 @@
 							{showPassword}
 							toggleShowPassword={() => (showPassword = !showPassword)}
 							bind:value={formState.confirmPassword} />
-						{#if $sender.data && 'confirmPassword' in $sender.data}
-							<p class="text-sm text-red-600">{$sender.data.confirmPassword}</p>
+						{#if errorState.confirmPassword}
+							<p class="text-sm text-red-600">{errorState.confirmPassword}</p>
 						{/if}
 					</div>
 				</div>
 			</div>
-			{#if $sender.data && 'global' in $sender.data}
-				<p class="mt-4 text-sm text-red-600">{$sender.data.global}</p>
-			{/if}
-			{#if $sender.error}
-				<p class="mt-4 text-sm text-red-600">{$sender.error}</p>
+			{#if errorState.global}
+				<p class="mt-4 text-sm text-red-600">{errorState.global}</p>
 			{/if}
 		</FieldSet.Content>
 		<FieldSet.Footer>
