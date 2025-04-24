@@ -23,7 +23,7 @@ export const login = (loginData: ILoginForm): MutationResponse<ILoginRequest, IL
 		mutationFn: async () => {
 			const loginRequest = validateData(loginSchema, loginData);
 
-			return abortableFetch(backend('/login'), {
+			return abortableFetch<ILoginResponse>(backend('/login'), {
 				method: 'POST',
 				body: JSON.stringify(loginRequest),
 				headers: {
@@ -42,7 +42,7 @@ export const register = (
 		mutationFn: async () => {
 			const { confirmPassword: _, ...registerRequest } = validateData(registerSchema, registerData);
 
-			return abortableFetch(backend('/register'), {
+			return abortableFetch<IRegisterResponse>(backend('/register'), {
 				method: 'POST',
 				body: JSON.stringify(registerRequest),
 				headers: {
@@ -57,7 +57,7 @@ export const session = (): QueryResponse<ISessionResponse> => {
 	return createQuery({
 		queryKey: ['auth', 'session'],
 		queryFn: async () => {
-			return abortableFetch(backend('/session'), {
+			return abortableFetch<ISessionResponse>(backend('/session'), {
 				headers: {
 					'Content-Type': 'application/json',
 				},
