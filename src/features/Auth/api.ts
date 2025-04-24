@@ -26,6 +26,9 @@ export const login = (loginData: ILoginForm): MutationResponse<ILoginRequest, IL
 			return abortableFetch(backend('/login'), {
 				method: 'POST',
 				body: JSON.stringify(loginRequest),
+				headers: {
+					'Content-Type': 'application/json',
+				},
 			});
 		},
 	});
@@ -42,6 +45,9 @@ export const register = (
 			return abortableFetch(backend('/register'), {
 				method: 'POST',
 				body: JSON.stringify(registerRequest),
+				headers: {
+					'Content-Type': 'application/json',
+				},
 			});
 		},
 	});
@@ -51,7 +57,11 @@ export const session = (): QueryResponse<ISessionResponse> => {
 	return createQuery({
 		queryKey: ['auth', 'session'],
 		queryFn: async () => {
-			return abortableFetch(backend('/session'));
+			return abortableFetch(backend('/session'), {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
 		},
 	});
 };
