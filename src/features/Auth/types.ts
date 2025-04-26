@@ -7,6 +7,7 @@ export interface ISessionResponse {
 	patronymic: string;
 	role: string;
 	createdAt: string;
+	avatarURL: string;
 }
 
 export interface IRegisterRequest {
