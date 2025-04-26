@@ -6,7 +6,7 @@ export const fetchBlockById = (id: string): QueryResponse<IBlockResponse> => {
 	return createQuery({
 		queryKey: ['block', 'fetch', 'id'],
 		queryFn: async () =>
-			abortableFetch(backend(`/blocks/${id}`), {
+			abortableFetch<IBlockResponse>(backend(`/blocks/${id}`), {
 				headers: {
 					'Content-Type': 'application/json',
 				},
@@ -21,7 +21,7 @@ export const fetchBlocksByIds = (ids: string[]): QueryResponse<IBlockResponse[]>
 		queryFn: async () => {
 			return await Promise.all(
 				ids.map((id) =>
-					abortableFetch(backend(`/blocks/${id}`), {
+					abortableFetch<IBlockResponse>(backend(`/blocks/${id}`), {
 						headers: {
 							'Content-Type': 'application/json',
 						},
