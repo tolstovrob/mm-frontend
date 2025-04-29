@@ -1,4 +1,4 @@
-import type { IUserCredentials } from '$features/User';
+import type { IUser } from '$entities/User';
 
 export interface ICourseResponse {
 	id: number;
@@ -8,7 +8,7 @@ export interface ICourseResponse {
 		icon: string;
 	};
 	name: string;
-	teachers: IUserCredentials[];
+	teachers: IUser[];
 	blockIds: number[];
 	description?: string;
 }

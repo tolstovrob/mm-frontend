@@ -16,6 +16,7 @@ const config = {
 			'$shared/components': './src/shared/components',
 			'$shared/utils': './src/shared/utils',
 			$shared: './src/shared',
+			$entities: './src/entities',
 			$features: './src/features',
 			$widgets: './src/widgets',
 			$pages: './src/pages',
