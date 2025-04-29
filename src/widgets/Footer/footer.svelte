@@ -1,8 +1,8 @@
 <script>
 	import { GitPullRequest } from 'lucide-svelte';
-	import * as User from '$features/User';
+	import * as Auth from '$features/Auth';
 
-	const session = User.session();
+	const session = Auth.session();
 	let stringifiedSession = $derived(
 		$session.isPending
 			? 'загрузка...'

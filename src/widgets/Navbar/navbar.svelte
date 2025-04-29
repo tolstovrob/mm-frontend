@@ -10,7 +10,7 @@
 		NotebookText,
 		Settings,
 	} from 'lucide-svelte';
-	import * as User from '$features/User';
+	import * as Auth from '$features/Auth';
 	import * as DropdownMenu from '$shared/components/ui/dropdown-menu';
 	import * as Avatar from '$shared/components/ui/avatar';
 	import { LightSwitch } from '$shared/components/ui/light-switch';
@@ -18,7 +18,7 @@
 	import { Skeleton } from '$shared/components/ui/skeleton';
 	import { staticfile } from '$shared/api';
 
-	const session = User.session();
+	const session = Auth.session();
 	let dropdowns: Record<string, boolean> = $state({
 		user: false,
 		auth: false,
