@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import * as Course from '$features/Course';
-	import * as User from '$features/User';
+	import * as User from '$entities/User';
 	import * as Card from '$shared/components/ui/card';
 	import * as Accordion from '$shared/components/ui/accordion';
 	import { UserCard } from '$shared/components/ui/user-card';
@@ -12,7 +12,7 @@
 	import type { SvelteComponent } from 'svelte';
 	import { Badge } from '$shared/components/ui/badge';
 
-	const courseId: number = page.params.groupId as unknown as number;
+	const courseId: string = page.params.courseId;
 
 	$effect(() => {
 		if (
