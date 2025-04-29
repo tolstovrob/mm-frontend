@@ -1,12 +1,12 @@
 <script lang="ts">
 	import * as HoverCard from '$shared/components/ui/hover-card';
 	import * as Avatar from '$shared/components/ui/avatar';
-	import * as User from '$features/User';
+	import * as User from '$entities/User';
 	import { staticfile } from '$shared/api';
 	import type { Snippet } from 'svelte';
 
 	type Props = {
-		user: User.IUserCredentials;
+		user: User.IUser;
 		children: Snippet;
 	};
 
