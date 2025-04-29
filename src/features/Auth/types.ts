@@ -1,7 +1,7 @@
 // WARN(tolstovrob): make sure that IRegisterResponse is correct on change
 export interface ISessionResponse {
 	id: string;
-	username: string;
+	email: string;
 	firstName: string;
 	lastName: string;
 	patronymic: string;
