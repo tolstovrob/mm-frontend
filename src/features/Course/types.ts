@@ -1,6 +1,6 @@
 import type { IUserCredentials } from '$features/User';
 
-export interface ICourseMeta {
+export interface ICourseResponse {
 	id: number;
 	discipline: {
 		id: number;
@@ -9,14 +9,6 @@ export interface ICourseMeta {
 	};
 	name: string;
 	teachers: IUserCredentials[];
-}
-
-export interface ICourse extends ICourseMeta {
 	blockIds: number[];
 	description?: string;
-}
-
-export interface IFetchCoursesRequest {
-	filter?: string;
-	page: number;
 }
