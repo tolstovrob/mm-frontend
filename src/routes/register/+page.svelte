@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { RegisterPage } from '$pages/register';
+	import { RegisterForm } from '$widgets/RegisterForm';
 </script>
 
-<RegisterPage />
+<RegisterForm />
