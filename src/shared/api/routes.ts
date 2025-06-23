@@ -15,4 +15,4 @@ export const backend = (endpoint: string, version: number = 1): string =>
  * @returns complete route on server
  */
 export const staticfile = (filename: string): string =>
-	`${import.meta.env.VITE_BACKEND_PROTOCOL}://${import.meta.env.VITE_BACKEND_HOST}:${import.meta.env.VITE_BACKEND_PORT}/static/${filename}`;
+	`${import.meta.env.VITE_BACKEND_PROTOCOL}://${import.meta.env.VITE_BACKEND_HOST}:${import.meta.env.VITE_BACKEND_PORT}/${filename}`;
